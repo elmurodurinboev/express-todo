@@ -2,9 +2,17 @@ const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient()
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
+const { validationResult } = require("express-validator")
 
 const register = async (req, res) => {
     try {
+        const vErrors = validationResult(req)
+        if (!vErrors.isEmpty()) {
+            res.status(400).json({
+                success: false,
+                errors: vErrors.array()
+            })
+        }
         const { first_name, last_name, email, password } = req.body
         const hashedPassword = await bcrypt.hash(password, 10)
         const isEmailExist = await prisma.user.findUnique({ where: { email } })
@@ -21,8 +29,15 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
     try {
-        const { email, password } = req.body
+        const vErrors = validationResult(req)
+        if (!vErrors.isEmpty()) {
+            res.status(400).json({
+                success: false,
+                errors: vErrors.array()
+            })
+        }
 
+        const { email, password } = req.body
         const existingUser = await prisma.user.findUnique({ where: { email } })
         if (!existingUser) {
             return res.status(400).json({ success: false, message: "Bunday ma'lumotli user topilmadi" })
