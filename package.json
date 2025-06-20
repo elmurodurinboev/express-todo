@@ -1,0 +1,37 @@
+{
+  "name": "todo-app",
+  "version": "1.0.0",
+  "description": "Todo App with ExpressJs",
+  "keywords": [
+    "ToDo",
+    "APP"
+  ],
+  "homepage": "https://github.com/elmurodurinboev/todo-app#readme",
+  "bugs": {
+    "url": "https://github.com/elmurodurinboev/todo-app/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/elmurodurinboev/todo-app.git"
+  },
+  "license": "ISC",
+  "author": "elmurodurinboev",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.10.1",
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.1",
+    "nodemon": "^3.1.10",
+    "prisma": "^6.10.1"
+  }
+}
