@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const { validationResult } = require("express-validator")
 
-const register = async (req, res) => {
+const register = async (req, res, next) => {
     try {
         const vErrors = validationResult(req)
         if (!vErrors.isEmpty()) {
@@ -22,12 +22,11 @@ const register = async (req, res) => {
         })
         res.status(200).json({ success: true, data })
     } catch (error) {
-        console.log(error)
-        res.status(400).json({ success: false, message: "Serverda xatolik yuz berdi." });
+        next(error)
     }
 }
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
     try {
         const vErrors = validationResult(req)
         if (!vErrors.isEmpty()) {
@@ -49,8 +48,7 @@ const login = async (req, res) => {
         const token = jwt.sign({ userId: existingUser.id, role: existingUser.role }, process.env.JWT_SECRET, { expiresIn: '1d' })
         res.status(200).json({ token })
     } catch (error) {
-        console.log(error)
-        res.status(400).json({ success: false, message: "Serverda xatolik yuz berdi." });
+        next(error)
     }
 }
 

@@ -2,7 +2,7 @@ const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient()
 
 
-const getUsers = async (req, res) => {
+const getUsers = async (req, res, next) => {
     try {
         const data = await prisma.user.findMany()
         const response = {
@@ -11,8 +11,7 @@ const getUsers = async (req, res) => {
         }
         res.status(200).json(response)
     } catch (error) {
-        console.log(error)
-        res.status(400).json({ success: false, message: "Serverda xatolik yuz berdi." });
+        next(error)
     }
 }
 

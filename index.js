@@ -6,6 +6,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const authMiddleware = require("./src/middlewares/auth.middleware")
 const adminMiddleware = require("./src/middlewares/admin.middleware")
+const errorHandler = require("./src/middlewares/error.middleware")
 
 // Route Imports
 const authRoutes = require("./src/routes/auth.routes")
@@ -20,6 +21,7 @@ app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(errorHandler)
 
 // Routes
 app.use("/api/auth", authRoutes)
