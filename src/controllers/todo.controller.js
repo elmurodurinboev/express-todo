@@ -1,6 +1,5 @@
 const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient
-const { validationResult } = require("express-validator")
 
 const getTodos = async (req, res) => {
     try {
