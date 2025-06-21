@@ -29,5 +29,9 @@ app.use("/api/user", authMiddleware, adminMiddleware, userRoutes);
 app.use("/api/todo", authMiddleware, totoRoutes);
 
 
+const { swaggerUi, swaggerSpec } = require("./swagger");
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+
 const port = process.env.PORT || 8080
 app.listen(port, () => console.log("Server is running on: ", port))
